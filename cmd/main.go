@@ -3,10 +3,11 @@ package main
 import (
 	"log"
 	"os"
+
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"github.com/mrestuf/kanban-board/config"
-	
+	"github.com/mrestuf/kanban-board/httpserver"
 )
 
 func init() {

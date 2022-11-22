@@ -5,20 +5,25 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	"github.com/mrestuf/kanban-board/common"
+	"github.com/mrestuf/kanban-board/httpserver/controllers"
 )
 
 type router struct {
 	router *gin.Engine
+
+	user   *controllers.UserController
 }
 
-func NewRouter(r *gin.Engine) *router {
+func NewRouter(r *gin.Engine, user *controllers.UserController) *router {
 	return &router{
 		router: r,
+		user:	user,
 	}
 }
 
 func (r *router) Start(port string) {
-
+	r.router.POST("/v1/users/register", r.user.Register)
 }
 
 func (r *router) verifyToken(ctx *gin.Context) {
