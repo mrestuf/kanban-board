@@ -40,3 +40,25 @@ func (c *UserController) Register(ctx *gin.Context) {
 	response := c.svc.Register(ctx, &req)
 	WriteJsonResponse(ctx, response)
 }
+
+func (c *UserController) Login(ctx *gin.Context) {
+	var req params.Login
+	err := ctx.ShouldBindJSON(&req)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	err = validator.New().Struct(req)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	response := c.svc.Login(ctx, &req)
+	WriteJsonResponse(ctx, response)
+}

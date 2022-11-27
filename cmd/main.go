@@ -8,6 +8,9 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/mrestuf/kanban-board/config"
 	"github.com/mrestuf/kanban-board/httpserver"
+	"github.com/mrestuf/kanban-board/httpserver/controllers"
+	"github.com/mrestuf/kanban-board/httpserver/services"
+	"github.com/mrestuf/kanban-board/httpserver/repositories/gorm"
 )
 
 func init() {

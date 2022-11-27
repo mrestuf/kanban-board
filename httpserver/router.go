@@ -23,7 +23,12 @@ func NewRouter(r *gin.Engine, user *controllers.UserController) *router {
 }
 
 func (r *router) Start(port string) {
+	
+	//users
 	r.router.POST("/v1/users/register", r.user.Register)
+	r.router.POST("/v1/users/login", r.user.Login)
+
+	r.router.Run(port)
 }
 
 func (r *router) verifyToken(ctx *gin.Context) {

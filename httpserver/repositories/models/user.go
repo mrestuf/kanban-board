@@ -1,13 +1,23 @@
 package models
 
-import "time"
+import (
+	// "database/sql/driver"	
+	"time"
+)
+
+type Role string
+
+const (
+	Admin Role = "admin"
+	Member Role = "member"	
+)
 
 type User struct {
 	Id        int `gorm:"primaryKey;autoIncrement"`
 	FullName  string
 	Email     string
 	Password  string
-	Role      string `gorm:"type:enum('member','admin');default:'member'"`
+	Role      Role `gorm:"type:role;default:'member'"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }

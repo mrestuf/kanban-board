@@ -7,7 +7,7 @@ import (
 	"github.com/mrestuf/kanban-board/httpserver/repositories/models"
 	"gorm.io/gorm"
 	"time"
-	"strings"
+	// "strings"
 )
 
 type userRepo struct {
@@ -27,6 +27,6 @@ func (r *userRepo) CreateUser(ctx context.Context, user *models.User) error {
 
 func (r *userRepo) FindUserByEmail(ctx context.Context, email string) (*models.User, error) {
 	user := new(models.User)
-	err := r.db.WithContext(ctx).Where("LOWER(email) = ?", strings.ToLower(email)).Take(user).Error
+	err := r.db.WithContext(ctx).Where("email = ?", email).Take(user).Error
 	return user, err
 }
