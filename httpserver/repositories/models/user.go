@@ -12,7 +12,7 @@ const (
 	Member Role = "member"	
 )
 
-type User struct {
+type Users struct {
 	Id        int `gorm:"primaryKey;autoIncrement"`
 	FullName  string
 	Email     string

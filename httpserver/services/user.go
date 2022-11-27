@@ -4,9 +4,9 @@ import (
 	"context"
 	"errors"
 	"net/http"
-	// "strings"
 	"time"
 
+	// "strings"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/mrestuf/kanban-board/common"
 	"github.com/mrestuf/kanban-board/config"
@@ -42,9 +42,9 @@ func (s *userSvc) Register(ctx context.Context, user *params.Register) *views.Re
 	}
 
 	//req
-	input := models.User{
+	input := models.Users{
 		FullName: user.FullName,
-		Email: user.Email,
+		Email:    user.Email,
 		Password: string(hashedPassword),
 	}
 	err = s.repo.CreateUser(ctx, &input)
@@ -54,10 +54,10 @@ func (s *userSvc) Register(ctx context.Context, user *params.Register) *views.Re
 	}
 
 	return views.SuccessResponse(http.StatusCreated, views.M_CREATED, views.Register{
-		Id:           input.Id,
-		FullName:     input.FullName,
-		Email:        input.Email,
-		CreatedAt:    input.CreatedAt,
+		Id:        input.Id,
+		FullName:  input.FullName,
+		Email:     input.Email,
+		CreatedAt: input.CreatedAt,
 	})
 }
 
@@ -83,8 +83,47 @@ func (s *userSvc) Login(ctx context.Context, user *params.Login) *views.Response
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	ss, err := token.SignedString(config.GetJwtSignature())
+
 	
 	return views.SuccessResponse(http.StatusOK, views.M_OK, views.Login{
 		Token: ss,
 	})
 }
+
+func (s *userSvc) UpdateUser(ctx context.Context, id int, params *params.UpdateUser) *views.Response {
+	model, err := s.repo.FindUserByID(ctx, uint(id))
+
+	if err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return views.ErrorResponse(http.StatusBadRequest, views.M_BAD_REQUEST, err)
+		}
+		return views.ErrorResponse(http.StatusInternalServerError, views.M_INTERNAL_SERVER_ERROR, err)
+	}
+	model.Email = params.Email
+	model.FullName = params.FullName
+	err = s.repo.UpdateUser(ctx, model)
+	if err != nil {
+		return views.ErrorResponse(http.StatusInternalServerError, views.M_INTERNAL_SERVER_ERROR, err)
+	}
+	return views.SuccessResponse(http.StatusOK, views.M_OK, views.UpdateUser{
+		Id:        model.Id,
+		FullName:  model.FullName,
+		Email:     model.Email,
+		UpdatedAt: model.UpdatedAt,
+	})
+}
+
+func (s *userSvc) DeleteUser(ctx context.Context, id int) *views.Response {
+	_, err := s.repo.FindUserByID(ctx, uint(id))
+	if err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return views.ErrorResponse(http.StatusBadRequest, views.M_BAD_REQUEST, err)
+		}
+		return views.ErrorResponse(http.StatusInternalServerError, views.M_INTERNAL_SERVER_ERROR, err)
+	}
+	if err = s.repo.DeleteUser(ctx, uint(id)); err != nil {
+		return views.ErrorResponse(http.StatusInternalServerError, views.M_INTERNAL_SERVER_ERROR, err)
+	}
+	return views.SuccessResponse(http.StatusOK, views.M_ACCOUNT_SUCCESSFULLY_DELETED, nil)
+}
+
