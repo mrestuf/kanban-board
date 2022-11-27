@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"net/http"
-	"strconv"
+	// "strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -67,15 +67,8 @@ func (c *UserController) Login(ctx *gin.Context) {
 }
 
 func (c *UserController) UpdateUser(ctx *gin.Context) {
-	id, err := strconv.Atoi(ctx.Param("userId"))
-	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
-		})
-		return
-	}
 	var req params.UpdateUser
-	if err = ctx.ShouldBindJSON(&req); err != nil {
+	if err := ctx.ShouldBindJSON(&req); err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
@@ -90,24 +83,19 @@ func (c *UserController) UpdateUser(ctx *gin.Context) {
 		return
 	}
 
-	if userData := claims.(*common.CustomClaims); userData.Id != id {
-		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
-			"error": "unauthorized to update other user data",
-		})
-		return
-	}
+	userData := claims.(*common.CustomClaims)
 
-	if err = validator.New().Struct(req); err != nil {
+	if err := validator.New().Struct(req); err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
 		return
 	}
-	resp := c.svc.UpdateUser(ctx, id, &req)
+	resp := c.svc.UpdateUser(ctx, userData.Id, &req)
 	WriteJsonResponse(ctx, resp)
 }
 
-func (c *UserController) Delete(ctx *gin.Context) {
+func (c *UserController) DeleteUser(ctx *gin.Context) {
 	claims, exist := ctx.Get("userData")
 	if !exist {
 		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{

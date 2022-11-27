@@ -32,7 +32,7 @@ func (r *userRepo) FindUserByEmail(ctx context.Context, email string) (*models.U
 	return user, err
 }
 
-func (r *userRepo) FindUserByID(ctx context.Context, id uint) (*models.Users, error) {
+func (r *userRepo) FindUserByID(ctx context.Context, id int) (*models.Users, error) {
 	user := new(models.Users)
 	err := r.db.WithContext(ctx).Where("id = ?", id).Take(user).Error
 	return user, err
@@ -43,6 +43,6 @@ func (r *userRepo) UpdateUser(ctx context.Context, user *models.Users) error {
 	return r.db.WithContext(ctx).Model(user).Updates(*user).Error
 }
 
-func (r *userRepo) DeleteUser(ctx context.Context, id uint) error {
+func (r *userRepo) DeleteUser(ctx context.Context, id int) error {
 	return r.db.WithContext(ctx).Delete(&models.Users{}, "id = ?", id).Error
 }

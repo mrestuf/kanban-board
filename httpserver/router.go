@@ -26,8 +26,8 @@ func (r *router) Start(port string) {
 	//users
 	r.router.POST("/v1/users/register", r.user.Register)
 	r.router.POST("/v1/users/login", r.user.Login)
-	r.router.PUT("/v1/users/update-account/:userId", r.verifyToken, r.user.UpdateUser)
-	r.router.DELETE("/v1/users/delete-account", r.verifyToken, r.user.Delete)
+	r.router.PUT("/v1/users/update-account", r.verifyToken, r.user.UpdateUser)
+	r.router.DELETE("/v1/users/delete-account", r.verifyToken, r.user.DeleteUser)
 
 
 	r.router.Run(port)

@@ -90,8 +90,8 @@ func (s *userSvc) Login(ctx context.Context, user *params.Login) *views.Response
 	})
 }
 
-func (s *userSvc) UpdateUser(ctx context.Context, id int, params *params.UpdateUser) *views.Response {
-	model, err := s.repo.FindUserByID(ctx, uint(id))
+func (s *userSvc) UpdateUser(ctx context.Context, id int, user *params.UpdateUser) *views.Response {
+	model, err := s.repo.FindUserByID(ctx, id)
 
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -99,8 +99,8 @@ func (s *userSvc) UpdateUser(ctx context.Context, id int, params *params.UpdateU
 		}
 		return views.ErrorResponse(http.StatusInternalServerError, views.M_INTERNAL_SERVER_ERROR, err)
 	}
-	model.Email = params.Email
-	model.FullName = params.FullName
+	model.Email = user.Email
+	model.FullName = user.FullName
 	err = s.repo.UpdateUser(ctx, model)
 	if err != nil {
 		return views.ErrorResponse(http.StatusInternalServerError, views.M_INTERNAL_SERVER_ERROR, err)
@@ -114,14 +114,14 @@ func (s *userSvc) UpdateUser(ctx context.Context, id int, params *params.UpdateU
 }
 
 func (s *userSvc) DeleteUser(ctx context.Context, id int) *views.Response {
-	_, err := s.repo.FindUserByID(ctx, uint(id))
+	_, err := s.repo.FindUserByID(ctx, id)
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return views.ErrorResponse(http.StatusBadRequest, views.M_BAD_REQUEST, err)
 		}
 		return views.ErrorResponse(http.StatusInternalServerError, views.M_INTERNAL_SERVER_ERROR, err)
 	}
-	if err = s.repo.DeleteUser(ctx, uint(id)); err != nil {
+	if err = s.repo.DeleteUser(ctx, id); err != nil {
 		return views.ErrorResponse(http.StatusInternalServerError, views.M_INTERNAL_SERVER_ERROR, err)
 	}
 	return views.SuccessResponse(http.StatusOK, views.M_ACCOUNT_SUCCESSFULLY_DELETED, nil)
