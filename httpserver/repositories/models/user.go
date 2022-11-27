@@ -2,11 +2,11 @@ package models
 
 import "time"
 
-type RoleAllowed string
+type Role string
 
 const (
-	admin  RoleAllowed = "admin"
-	member RoleAllowed = "member"
+	Admin  Role = "admin"
+	Member Role = "member"
 )
 
 type Users struct {
@@ -14,8 +14,7 @@ type Users struct {
 	FullName  string
 	Email     string
 	Password  string
-	Role      RoleAllowed
+	Role      Role `gorm:"type:role;default:'member'"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
-	// Role      string `gorm:"type:enum('member','admin');default:'member'"`
 }
