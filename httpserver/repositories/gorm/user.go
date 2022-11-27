@@ -2,7 +2,6 @@ package gorm
 
 import (
 	"context"
-
 	"strings"
 	"time"
 
@@ -10,8 +9,6 @@ import (
 	"github.com/mrestuf/kanban-board/httpserver/repositories/models"
 	"gorm.io/gorm"
 
-	"time"
-	// "strings"
 )
 
 type userRepo struct {

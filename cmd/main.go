@@ -11,9 +11,6 @@ import (
 	"github.com/mrestuf/kanban-board/httpserver/controllers"
 	"github.com/mrestuf/kanban-board/httpserver/services"
 	"github.com/mrestuf/kanban-board/httpserver/repositories/gorm"
-	"github.com/mrestuf/kanban-board/httpserver/repositories/gorm"
-	"github.com/mrestuf/kanban-board/httpserver/services"
-
 )
 
 func init() {
