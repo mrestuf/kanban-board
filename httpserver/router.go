@@ -13,12 +13,14 @@ type router struct {
 	router *gin.Engine
 
 	user *controllers.UserController
+	category *controllers.CategoryController
 }
 
-func NewRouter(r *gin.Engine, user *controllers.UserController) *router {
+func NewRouter(r *gin.Engine, user *controllers.UserController, category *controllers.CategoryController) *router {
 	return &router{
 		router: r,
 		user:   user,
+		category: category,
 	}
 }
 
@@ -29,6 +31,8 @@ func (r *router) Start(port string) {
 	r.router.PUT("/v1/users/update-account", r.verifyToken, r.user.UpdateUser)
 	r.router.DELETE("/v1/users/delete-account", r.verifyToken, r.user.DeleteUser)
 
+	//categories
+	r.router.POST("/v1/categories", r.verifyToken, r.category.CreateCategory)
 
 	r.router.Run(port)
 }

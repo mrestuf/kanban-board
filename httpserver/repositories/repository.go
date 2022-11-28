@@ -13,3 +13,8 @@ type UserRepo interface {
 	UpdateUser(ctx context.Context, user *models.Users) error
 	DeleteUser(ctx context.Context, id int) error
 }
+
+type CategoryRepo interface {
+	GetCategories(ctx context.Context) ([]models.Categories, error)
+	CreateCategory(ctx context.Context, category *models.Categories) error
+}

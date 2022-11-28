@@ -15,3 +15,8 @@ type UserSvc interface {
 	DeleteUser(ctx context.Context, id int) *views.Response
 }
 
+type CategorySvc interface {
+	// GetCategories(ctx context.Context) *views.Response
+	CreateCategory(ctx context.Context, category *params.CreateCategory) *views.Response
+}
+

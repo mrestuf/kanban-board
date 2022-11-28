@@ -14,6 +14,7 @@ var (
 
 type CustomClaims struct {
 	Id int `json:"id"`
+	Role string `json:"role"`
 	jwt.StandardClaims
 }
 
