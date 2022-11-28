@@ -26,7 +26,7 @@ func ConnectPostgresGORM() (*gorm.DB, error) {
 		return nil, err
 	}
 
-	db.Debug().AutoMigrate(models.Users{})
+	db.Debug().AutoMigrate(models.Users{}, models.Categories{})
 
 	return db, nil
 }

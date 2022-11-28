@@ -12,22 +12,27 @@ import (
 type router struct {
 	router *gin.Engine
 
-	user *controllers.UserController
+	user       *controllers.UserController
+	categories *controllers.CategoriesController
 }
 
-func NewRouter(r *gin.Engine, user *controllers.UserController) *router {
+func NewRouter(r *gin.Engine, user *controllers.UserController, categories *controllers.CategoriesController) *router {
 	return &router{
-		router: r,
-		user:   user,
+		router:     r,
+		user:       user,
+		categories: categories,
 	}
 }
 
 func (r *router) Start(port string) {
+	//users
 	r.router.POST("/v1/users/register", r.user.Register)
 	r.router.POST("/v1/users/login", r.user.Login)
-	r.router.PUT("/v1/users/update-account/:userId", r.verifyToken, r.user.UpdateUser)
-	r.router.DELETE("/v1/users/delete-account", r.verifyToken, r.user.Delete)
+	r.router.PUT("/v1/users/update-account", r.verifyToken, r.user.UpdateUser)
+	r.router.DELETE("/v1/users/delete-account", r.verifyToken, r.user.DeleteUser)
 
+	// categories
+	r.router.POST("/v1/categories", r.verifyToken, r.categories.CreateCategories)
 	r.router.Run(port)
 }
 

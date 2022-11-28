@@ -3,15 +3,11 @@ package services
 import (
 	"context"
 	"errors"
+	"log"
 	"net/http"
 	"time"
 
 	// "strings"
-	// "time"
-
-	// "github.com/dgrijalva/jwt-go"
-	// "github.com/mrestuf/kanban-board/common"
-	// "github.com/mrestuf/kanban-board/config"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/mrestuf/kanban-board/common"
 	"github.com/mrestuf/kanban-board/config"
@@ -68,12 +64,17 @@ func (s *userSvc) Register(ctx context.Context, user *params.Register) *views.Re
 
 func (s *userSvc) Login(ctx context.Context, user *params.Login) *views.Response {
 	model, err := s.repo.FindUserByEmail(ctx, user.Email)
+	// log.Println(model)
+	if model.Role == models.Admin {
+		log.Println("Anda masuk sebagai admin")
+	}
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return views.ErrorResponse(http.StatusBadRequest, views.M_INVALID_CREDENTIALS, err)
 		}
 		return views.ErrorResponse(http.StatusInternalServerError, views.M_INTERNAL_SERVER_ERROR, err)
 	}
+
 	err = bcrypt.CompareHashAndPassword([]byte(model.Password), []byte(user.Password))
 	if err != nil {
 		return views.ErrorResponse(http.StatusBadRequest, views.M_INVALID_CREDENTIALS, err)
@@ -88,13 +89,17 @@ func (s *userSvc) Login(ctx context.Context, user *params.Login) *views.Response
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	ss, err := token.SignedString(config.GetJwtSignature())
 
+	// check users role
+	// if models.Users.Role == models.Admin {
+	// 	log.Println("masuk sebagai admin")
+	// }
 	return views.SuccessResponse(http.StatusOK, views.M_OK, views.Login{
 		Token: ss,
 	})
 }
 
-func (s *userSvc) UpdateUser(ctx context.Context, id int, params *params.UpdateUser) *views.Response {
-	model, err := s.repo.FindUserByID(ctx, uint(id))
+func (s *userSvc) UpdateUser(ctx context.Context, id int, user *params.UpdateUser) *views.Response {
+	model, err := s.repo.FindUserByID(ctx, id)
 
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -102,8 +107,8 @@ func (s *userSvc) UpdateUser(ctx context.Context, id int, params *params.UpdateU
 		}
 		return views.ErrorResponse(http.StatusInternalServerError, views.M_INTERNAL_SERVER_ERROR, err)
 	}
-	model.Email = params.Email
-	model.FullName = params.FullName
+	model.Email = user.Email
+	model.FullName = user.FullName
 	err = s.repo.UpdateUser(ctx, model)
 	if err != nil {
 		return views.ErrorResponse(http.StatusInternalServerError, views.M_INTERNAL_SERVER_ERROR, err)
@@ -117,14 +122,14 @@ func (s *userSvc) UpdateUser(ctx context.Context, id int, params *params.UpdateU
 }
 
 func (s *userSvc) DeleteUser(ctx context.Context, id int) *views.Response {
-	_, err := s.repo.FindUserByID(ctx, uint(id))
+	_, err := s.repo.FindUserByID(ctx, id)
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return views.ErrorResponse(http.StatusBadRequest, views.M_BAD_REQUEST, err)
 		}
 		return views.ErrorResponse(http.StatusInternalServerError, views.M_INTERNAL_SERVER_ERROR, err)
 	}
-	if err = s.repo.DeleteUser(ctx, uint(id)); err != nil {
+	if err = s.repo.DeleteUser(ctx, id); err != nil {
 		return views.ErrorResponse(http.StatusInternalServerError, views.M_INTERNAL_SERVER_ERROR, err)
 	}
 	return views.SuccessResponse(http.StatusOK, views.M_ACCOUNT_SUCCESSFULLY_DELETED, nil)
