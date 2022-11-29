@@ -33,6 +33,8 @@ func (r *router) Start(port string) {
 
 	//categories
 	r.router.POST("/v1/categories", r.verifyToken, r.category.CreateCategory)
+	r.router.PATCH("/v1/categories/:categoryId", r.verifyToken, r.category.UpdateCategory)
+	r.router.DELETE("/v1/categories/:categoryId", r.verifyToken, r.category.DeleteCategory)
 
 	r.router.Run(port)
 }

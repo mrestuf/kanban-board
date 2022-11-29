@@ -15,6 +15,7 @@ const (
 	M_INTERNAL_SERVER_ERROR        = "INTERNAL_SERVER_ERROR"
 	M_EMAIL_ALREADY_USED           = "EMAIL_ALREADY_USED"
 	M_ACCOUNT_SUCCESSFULLY_DELETED = "Your account has been successfully deleted"
+	M_CATEGORY_SUCCESSFULLY_DELETED = "Category has been successfully deleted"
 )
 
 func SuccessResponse(status int, message string, payload interface{}) *Response {
