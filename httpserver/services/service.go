@@ -5,7 +5,7 @@ import (
 
 	"github.com/mrestuf/kanban-board/httpserver/controllers/params"
 	"github.com/mrestuf/kanban-board/httpserver/controllers/views"
-	// "github.com/mrestuf/kanban-board/httpserver/repositories/models"
+	"github.com/mrestuf/kanban-board/httpserver/repositories/models"
 )
 
 type UserSvc interface {
@@ -13,5 +13,13 @@ type UserSvc interface {
 	Login(ctx context.Context, user *params.Login) *views.Response
 	UpdateUser(ctx context.Context, id int, user *params.UpdateUser) *views.Response
 	DeleteUser(ctx context.Context, id int) *views.Response
+}
+
+type CategorySvc interface {
+	// GetCategories(ctx context.Context) *views.Response
+	CreateCategory(ctx context.Context, category *params.CreateCategory) *views.Response
+	UpdateCategory(ctx context.Context, category *params.UpdateCategory, id int) *views.Response
+	GetCategoryByID(ctx context.Context, id int) (*models.Categories, error)
+	DeleteCategory(ctx context.Context, id int) *views.Response
 }
 
