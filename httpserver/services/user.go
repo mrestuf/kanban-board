@@ -80,8 +80,11 @@ func (s *userSvc) Login(ctx context.Context, user *params.Login) *views.Response
 		return views.ErrorResponse(http.StatusBadRequest, views.M_INVALID_CREDENTIALS, err)
 	}
 
+	role := string(model.Role)
+
 	claims := &common.CustomClaims{
 		Id: model.Id,
+		Role: role,
 	}
 	claims.ExpiresAt = time.Now().Add(time.Minute * time.Duration(config.GetJwtExpiredTime())).Unix()
 	claims.Subject = model.Email

@@ -1,10 +1,13 @@
 package models
 
-import "time"
+import (	
+	"time"
+)
 
 type Categories struct {
-	Id        int
+	Id        int `gorm:"primaryKey;autoIncrement"`
 	Type      string
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
+

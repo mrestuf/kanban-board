@@ -14,7 +14,10 @@ type UserRepo interface {
 	DeleteUser(ctx context.Context, id int) error
 }
 
-type CategoriesRepo interface {
-	CreateCategories(ctx context.Context, cat *models.Categories) error
+type CategoryRepo interface {
 	GetCategories(ctx context.Context) ([]models.Categories, error)
+	CreateCategory(ctx context.Context, category *models.Categories) error
+	FindCategoryByID(ctx context.Context, id int) (*models.Categories, error)
+	UpdateCategory(ctx context.Context, category *models.Categories, id int) error
+	DeleteCategory(ctx context.Context, id int) error
 }
