@@ -9,8 +9,8 @@ import (
 	"github.com/mrestuf/kanban-board/config"
 	"github.com/mrestuf/kanban-board/httpserver"
 	"github.com/mrestuf/kanban-board/httpserver/controllers"
-	"github.com/mrestuf/kanban-board/httpserver/services"
 	"github.com/mrestuf/kanban-board/httpserver/repositories/gorm"
+	"github.com/mrestuf/kanban-board/httpserver/services"
 )
 
 func init() {
@@ -38,7 +38,11 @@ func main() {
 	categorySvc := services.NewCategorySvc(categoryRepo)
 	categoryHandler := controllers.NewCategoryController(categorySvc)
 
-	app := httpserver.NewRouter(router, userHandler, categoryHandler)
+	taskRepo := gorm.NewTaskRepo(db)
+	taskSvc := services.NewTaskSvc(taskRepo, categoryRepo)
+	taskHandler := controllers.NewTaskController(taskSvc)
+
+	app := httpserver.NewRouter(router, userHandler, categoryHandler, taskHandler)
 	PORT := os.Getenv("PORT")
 	app.Start(":" + PORT)
 }

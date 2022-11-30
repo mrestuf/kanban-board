@@ -1,14 +1,14 @@
 package models
 
-import (	
+import (
 	"time"
 )
 
 type Role string
 
 const (
-	Admin Role = "admin"
-	Member Role = "member"	
+	Admin  Role = "admin"
+	Member Role = "member"
 )
 
 type Users struct {
