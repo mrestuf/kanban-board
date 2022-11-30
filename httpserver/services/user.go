@@ -64,7 +64,7 @@ func (s *userSvc) Register(ctx context.Context, user *params.Register) *views.Re
 
 func (s *userSvc) Login(ctx context.Context, user *params.Login) *views.Response {
 	model, err := s.repo.FindUserByEmail(ctx, user.Email)
-	// log.Println(model)
+	// check users role
 	if model.Role == models.Admin {
 		log.Println("Anda masuk sebagai admin")
 	}
@@ -89,10 +89,6 @@ func (s *userSvc) Login(ctx context.Context, user *params.Login) *views.Response
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	ss, err := token.SignedString(config.GetJwtSignature())
 
-	// check users role
-	// if models.Users.Role == models.Admin {
-	// 	log.Println("masuk sebagai admin")
-	// }
 	return views.SuccessResponse(http.StatusOK, views.M_OK, views.Login{
 		Token: ss,
 	})

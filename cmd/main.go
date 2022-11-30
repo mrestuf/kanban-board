@@ -36,7 +36,7 @@ func main() {
 
 	categoriesRepo := gorm.NewCategories(db)
 	categoriesSvc := services.NewCategoriesSvc(categoriesRepo, userRepo)
-	categoriesHandler := controllers.NewCategoriesController(categoriesSvc)
+	categoriesHandler := controllers.NewCategoriesController(categoriesSvc, userSvc)
 
 	app := httpserver.NewRouter(router, userHandler, categoriesHandler)
 	PORT := os.Getenv("PORT")

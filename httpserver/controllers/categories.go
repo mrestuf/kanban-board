@@ -11,18 +11,20 @@ import (
 )
 
 type CategoriesController struct {
-	svc services.CategoriesSvc
+	svc     services.CategoriesSvc
+	userSvc services.UserSvc
 }
 
-func NewCategoriesController(svc services.CategoriesSvc) *CategoriesController {
+func NewCategoriesController(svc services.CategoriesSvc, userSvc services.UserSvc) *CategoriesController {
 	return &CategoriesController{
-		svc: svc,
+		svc:     svc,
+		userSvc: userSvc,
 	}
 }
 
 func (control *CategoriesController) CreateCategories(ctx *gin.Context) {
 	var request params.CreateCategories
-	var user *params.Login
+	var user params.Login
 	if err := ctx.ShouldBindJSON(&request); err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
@@ -46,6 +48,6 @@ func (control *CategoriesController) CreateCategories(ctx *gin.Context) {
 		})
 		return
 	}
-	response := control.svc.CreateCategory(ctx, &request, userId, user)
+	response := control.svc.CreateCategory(ctx, &request, userId, &user)
 	WriteJsonResponse(ctx, response)
 }

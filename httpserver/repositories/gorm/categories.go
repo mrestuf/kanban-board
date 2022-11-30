@@ -20,8 +20,9 @@ func NewCategories(db *gorm.DB) repositories.CategoriesRepo {
 }
 
 func (r *categoriesRepo) CreateCategories(ctx context.Context, cat *models.Categories) error {
+	// user := new(models.Users)
 	cat.CreatedAt = time.Now()
-	return r.db.WithContext(ctx).Create(cat).Error
+	return r.db.WithContext(ctx).Preload("users").Create(cat).Error
 }
 
 func (r *categoriesRepo) GetCategories(ctx context.Context) ([]models.Categories, error) {
