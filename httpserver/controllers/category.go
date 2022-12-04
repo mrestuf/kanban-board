@@ -38,7 +38,7 @@ func (c *CategoryController) CreateCategory(ctx *gin.Context) {
 		})
 		return
 	}
-	
+
 	userData := claims.(*common.CustomClaims)
 	userRole := userData.Role
 	if userRole != "admin" {
@@ -83,7 +83,7 @@ func (c *CategoryController) UpdateCategory(ctx *gin.Context) {
 		})
 		return
 	}
-	
+
 	userData := claims.(*common.CustomClaims)
 	userRole := userData.Role
 	if userRole != "admin" {
@@ -121,7 +121,7 @@ func (c *CategoryController) DeleteCategory(ctx *gin.Context) {
 		})
 		return
 	}
-	
+
 	userData := claims.(*common.CustomClaims)
 	userRole := userData.Role
 	if userRole != "admin" {
@@ -136,7 +136,8 @@ func (c *CategoryController) DeleteCategory(ctx *gin.Context) {
 	WriteJsonResponse(ctx, response)
 }
 
-// func (c *CategoryController) GetCategories(ctx *gin.Context) {
-// 	response:= c.svc.GetCategories(ctx)
-// 	WriteJsonResponse(ctx, response)
-// }
+func (c *CategoryController) GetCategories(ctx *gin.Context) {
+	// var req params.CreateTask
+	response := c.svc.GetCategory(ctx)
+	WriteJsonResponse(ctx, response)
+}

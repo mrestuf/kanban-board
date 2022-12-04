@@ -38,7 +38,11 @@ func main() {
 	categorySvc := services.NewCategorySvc(categoryRepo)
 	categoryHandler := controllers.NewCategoryController(categorySvc)
 
-	app := httpserver.NewRouter(router, userHandler, categoryHandler)
+	taskRepo := gorm.NewTaskRepo(db)
+	taskSvc := services.NewTaskSvc(taskRepo, categoryRepo)
+	taskHandler := controllers.NewTaskController(taskSvc)
+
+	app := httpserver.NewRouter(router, userHandler, categoryHandler, taskHandler)
 	PORT := os.Getenv("PORT")
 	app.Start(":" + PORT)
 }
