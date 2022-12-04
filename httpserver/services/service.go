@@ -16,7 +16,7 @@ type UserSvc interface {
 }
 
 type CategorySvc interface {
-	// GetCategories(ctx context.Context) *views.Response
+	GetCategory(ctx context.Context) *views.Response
 	CreateCategory(ctx context.Context, category *params.CreateCategory) *views.Response
 	UpdateCategory(ctx context.Context, category *params.UpdateCategory, id int) *views.Response
 	GetCategoryByID(ctx context.Context, id int) (*models.Categories, error)
