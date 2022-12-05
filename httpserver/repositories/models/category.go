@@ -2,17 +2,17 @@ package models
 
 import (
 	"time"
-
-	"github.com/mrestuf/kanban-board/httpserver/controllers/views"
 )
 
 type Categories struct {
-	Id         int `gorm:"primaryKey;autoIncrement"`
-	UserId     int `gorm:"foreignKey:Id"`
-	CategoryId int `gorm:"foreignKey:Id"`
-	TaskId     int `gorm:"foreignKey:Id"`
-	Type       string
-	CreatedAt  time.Time
-	UpdatedAt  time.Time
-	Task       views.TaskGetCategories
+	Id        int `gorm:"primaryKey;autoIncrement"`
+	TaskId    int
+	Tasks     *Task `gorm:"foreignKey:Id"`
+	Type      string
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	// UserId    int
+	// User      Users `gorm:"foreignKey:UserId"`
+	// Task      views.TaskGetCategories
+	// Task *Task
 }

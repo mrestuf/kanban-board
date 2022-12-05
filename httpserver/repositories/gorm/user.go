@@ -2,13 +2,13 @@ package gorm
 
 import (
 	"context"
+	"log"
 	"strings"
 	"time"
 
 	"github.com/mrestuf/kanban-board/httpserver/repositories"
 	"github.com/mrestuf/kanban-board/httpserver/repositories/models"
 	"gorm.io/gorm"
-
 )
 
 type userRepo struct {
@@ -45,4 +45,15 @@ func (r *userRepo) UpdateUser(ctx context.Context, user *models.Users) error {
 
 func (r *userRepo) DeleteUser(ctx context.Context, id int) error {
 	return r.db.WithContext(ctx).Delete(&models.Users{}, "id = ?", id).Error
+}
+
+func (r *userRepo) GetAllUsers(ctx context.Context) ([]models.Users, error) {
+	var users []models.Users
+
+	err := r.db.WithContext(ctx).Find(&users).Error
+	if err != nil {
+		log.Println(err)
+		return users, err
+	}
+	return users, nil
 }

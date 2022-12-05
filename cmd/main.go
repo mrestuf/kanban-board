@@ -35,12 +35,13 @@ func main() {
 	userHandler := controllers.NewUserController(userSvc)
 
 	categoryRepo := gorm.NewCategoryRepo(db)
-	categorySvc := services.NewCategorySvc(categoryRepo)
-	categoryHandler := controllers.NewCategoryController(categorySvc)
 
 	taskRepo := gorm.NewTaskRepo(db)
 	taskSvc := services.NewTaskSvc(taskRepo, categoryRepo)
 	taskHandler := controllers.NewTaskController(taskSvc)
+
+	categorySvc := services.NewCategorySvc(categoryRepo, userRepo, taskRepo)
+	categoryHandler := controllers.NewCategoryController(categorySvc)
 
 	app := httpserver.NewRouter(router, userHandler, categoryHandler, taskHandler)
 	PORT := os.Getenv("PORT")

@@ -8,6 +8,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/mrestuf/kanban-board/common"
 	"github.com/mrestuf/kanban-board/httpserver/controllers/params"
+	"github.com/mrestuf/kanban-board/httpserver/repositories/models"
 	"github.com/mrestuf/kanban-board/httpserver/services"
 )
 
@@ -137,7 +138,10 @@ func (c *CategoryController) DeleteCategory(ctx *gin.Context) {
 }
 
 func (c *CategoryController) GetCategories(ctx *gin.Context) {
-	// var req params.CreateTask
-	response := c.svc.GetCategory(ctx)
+	// var res views.TaskGetCategories
+	var task models.Task
+	var user models.Users
+
+	response := c.svc.GetCategory(ctx, &task, &user)
 	WriteJsonResponse(ctx, response)
 }

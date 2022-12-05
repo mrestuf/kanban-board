@@ -12,6 +12,7 @@ type UserRepo interface {
 	FindUserByID(ctx context.Context, id int) (*models.Users, error)
 	UpdateUser(ctx context.Context, user *models.Users) error
 	DeleteUser(ctx context.Context, id int) error
+	GetAllUsers(ctx context.Context) ([]models.Users, error)
 }
 
 type CategoryRepo interface {
