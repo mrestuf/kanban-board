@@ -2,10 +2,12 @@ package gorm
 
 import (
 	"context"
+
+	"time"
+
 	"github.com/mrestuf/kanban-board/httpserver/repositories"
 	"github.com/mrestuf/kanban-board/httpserver/repositories/models"
 	"gorm.io/gorm"
-	"time"
 )
 
 type categoryRepo struct {
