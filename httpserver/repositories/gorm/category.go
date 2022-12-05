@@ -2,13 +2,14 @@ package gorm
 
 import (
 	"context"
-	// "strings"
-	"time"
 	"log"
+
 	"github.com/mrestuf/kanban-board/httpserver/repositories"
 	"github.com/mrestuf/kanban-board/httpserver/repositories/models"
 	"gorm.io/gorm"
 
+	// "strings"
+	"time"
 )
 
 type categoryRepo struct {
@@ -52,5 +53,3 @@ func (r *categoryRepo) GetCategories(ctx context.Context) ([]models.Categories, 
 	}
 	return categories, nil
 }
-
-

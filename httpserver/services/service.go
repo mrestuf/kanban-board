@@ -16,10 +16,18 @@ type UserSvc interface {
 }
 
 type CategorySvc interface {
-	// GetCategories(ctx context.Context) *views.Response
+	GetCategory(ctx context.Context, task *models.Task, user *models.Users) *views.Response
 	CreateCategory(ctx context.Context, category *params.CreateCategory) *views.Response
 	UpdateCategory(ctx context.Context, category *params.UpdateCategory, id int) *views.Response
 	GetCategoryByID(ctx context.Context, id int) (*models.Categories, error)
 	DeleteCategory(ctx context.Context, id int) *views.Response
 }
 
+type TaskSvc interface {
+	CreateTask(ctx context.Context, task *params.CreateTask, userId int) *views.Response
+	GetTasks(ctx context.Context) *views.Response
+	UpdateTask(ctx context.Context, task *params.UpdateTask, taskId int) *views.Response
+	UpdateTaskStatus(ctx context.Context, task *params.UpdateTaskStatus, taskId int) *views.Response
+	UpdateTaskCategory(ctx context.Context, task *params.UpdateTaskCategory, taskId int) *views.Response
+	DeleteTask(ctx context.Context, taskId int) *views.Response
+}

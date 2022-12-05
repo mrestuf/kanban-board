@@ -3,6 +3,7 @@ package services
 import (
 	"context"
 	"errors"
+	"log"
 	"net/http"
 	"time"
 
@@ -63,6 +64,10 @@ func (s *userSvc) Register(ctx context.Context, user *params.Register) *views.Re
 
 func (s *userSvc) Login(ctx context.Context, user *params.Login) *views.Response {
 	model, err := s.repo.FindUserByEmail(ctx, user.Email)
+	// check users role
+	if model.Role == models.Admin {
+		log.Println("Anda masuk sebagai admin")
+	}
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return views.ErrorResponse(http.StatusBadRequest, views.M_INVALID_CREDENTIALS, err)
@@ -87,7 +92,6 @@ func (s *userSvc) Login(ctx context.Context, user *params.Login) *views.Response
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	ss, err := token.SignedString(config.GetJwtSignature())
 
-	
 	return views.SuccessResponse(http.StatusOK, views.M_OK, views.Login{
 		Token: ss,
 	})
@@ -129,4 +133,3 @@ func (s *userSvc) DeleteUser(ctx context.Context, id int) *views.Response {
 	}
 	return views.SuccessResponse(http.StatusOK, views.M_ACCOUNT_SUCCESSFULLY_DELETED, nil)
 }
-
