@@ -9,11 +9,11 @@ type CreateCategory struct {
 }
 
 type GetCategories struct {
-	Id        int               `json:"id"`
-	Type      string            `json:"type"`
-	UpdatedAt time.Time         `json:"updated_at"`
-	CreatedAt time.Time         `json:"created_at"`
-	Tasks     TaskGetCategories `json:"Tasks"`
+	Id        int                 `json:"id"`
+	Type      string              `json:"type"`
+	UpdatedAt time.Time           `json:"updated_at"`
+	CreatedAt time.Time           `json:"created_at"`
+	Tasks     []TaskGetCategories `json:"Tasks"`
 }
 
 type TaskGetCategories struct {

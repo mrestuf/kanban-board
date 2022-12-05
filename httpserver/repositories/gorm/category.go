@@ -2,14 +2,12 @@ package gorm
 
 import (
 	"context"
-	"log"
+
+	"time"
 
 	"github.com/mrestuf/kanban-board/httpserver/repositories"
 	"github.com/mrestuf/kanban-board/httpserver/repositories/models"
 	"gorm.io/gorm"
-
-	// "strings"
-	"time"
 )
 
 type categoryRepo struct {
@@ -46,10 +44,6 @@ func (r *categoryRepo) DeleteCategory(ctx context.Context, id int) error {
 func (r *categoryRepo) GetCategories(ctx context.Context) ([]models.Categories, error) {
 	var categories []models.Categories
 
-	err := r.db.WithContext(ctx).Find(&categories).Error
-	if err != nil {
-		log.Println(err)
-		return categories, err
-	}
-	return categories, nil
+	err := r.db.WithContext(ctx).Preload("Tasks").Find(&categories).Error
+	return categories, err
 }
