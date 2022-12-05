@@ -100,20 +100,25 @@ func (s *categorySvc) GetCategory(ctx context.Context) *views.Response {
 	}
 	categories := make([]views.GetCategories, 0)
 	for _, cat := range c {
+		tasks := make([]views.TaskGetCategories, 0)
+		for _, task := range cat.Tasks {
+			tasks = append(tasks, views.TaskGetCategories{
+				Id:          task.Id,
+				Title:       task.Title,
+				Description: task.Description,
+				UserId:      task.UserId,
+				CategoryId:  task.CategoryId,
+				UpdatedAt:   task.UpdatedAt,
+				CreatedAt:   task.CreatedAt,
+			})
+		}
+
 		categories = append(categories, views.GetCategories{
 			Id:        cat.Id,
 			Type:      cat.Type,
 			UpdatedAt: cat.UpdatedAt,
 			CreatedAt: cat.CreatedAt,
-			Tasks: views.TaskGetCategories{
-				Id:          cat.TaskId,
-				Title:       cat.Task.Title,
-				Description: cat.Task.Description,
-				UserId:      cat.UserId,
-				CategoryId:  cat.CategoryId,
-				UpdatedAt:   cat.Task.UpdatedAt,
-				CreatedAt:   cat.Task.CreatedAt,
-			},
+			Tasks:     tasks,
 		})
 	}
 	return views.SuccessResponse(http.StatusOK, views.M_OK, categories)
