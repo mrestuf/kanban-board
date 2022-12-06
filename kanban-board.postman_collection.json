@@ -1,0 +1,531 @@
+{
+	"info": {
+		"_postman_id": "26d15750-3aa3-4511-a09e-ac9b939cb4a4",
+		"name": "kanban-board",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23401211"
+	},
+	"item": [
+		{
+			"name": "REGISTER",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"full_name\": \"Member-2\",\r\n    \"email\": \"member2@email.com\",\r\n    \"password\": \"qwerty123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://kanban-board-production-a581.up.railway.app/v1/users/register",
+					"protocol": "https",
+					"host": [
+						"kanban-board-production-a581",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"v1",
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOGIN",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"admin@gmail.com\",\r\n    \"password\":\"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://kanban-board-production-a581.up.railway.app/v1/users/login",
+					"protocol": "https",
+					"host": [
+						"kanban-board-production-a581",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"v1",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE-ACCOUNT",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6Im1lbWJlciIsImV4cCI6MTY3MDM5MzQ0Mywic3ViIjoibWVtYmVyMkBlbWFpbC5jb20ifQ.cUJYhnKiPKjO3g5nIImN7Rm7KTYe5yEz9w05tYGTqqs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"full_name\":\"Member 2-Updatee\",\r\n    \"email\":\"member2@email.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://kanban-board-production-a581.up.railway.app/v1/users/update-account",
+					"protocol": "https",
+					"host": [
+						"kanban-board-production-a581",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"v1",
+						"users",
+						"update-account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE-ACCOUNT",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6Im1lbWJlciIsImV4cCI6MTY3MDM5MzQ0Mywic3ViIjoibWVtYmVyMkBlbWFpbC5jb20ifQ.cUJYhnKiPKjO3g5nIImN7Rm7KTYe5yEz9w05tYGTqqs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://kanban-board-production-a581.up.railway.app/v1/users/delete-account",
+					"protocol": "https",
+					"host": [
+						"kanban-board-production-a581",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"v1",
+						"users",
+						"delete-account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE-CATEGORY",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6ImFkbWluIiwiZXhwIjoxNjcwMzk0MTQyLCJzdWIiOiJhZG1pbkBnbWFpbC5jb20ifQ.yubAfyNdwIkUi8YAYBNQlfiRh7waY1pbl5vLp_cqasI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"Monthly 4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://kanban-board-production-a581.up.railway.app/v1/categories",
+					"protocol": "https",
+					"host": [
+						"kanban-board-production-a581",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"v1",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-CATEGORIES",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6ImFkbWluIiwiZXhwIjoxNjcwMzk0MTQyLCJzdWIiOiJhZG1pbkBnbWFpbC5jb20ifQ.yubAfyNdwIkUi8YAYBNQlfiRh7waY1pbl5vLp_cqasI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://kanban-board-production-a581.up.railway.app/v1/categories",
+					"protocol": "https",
+					"host": [
+						"kanban-board-production-a581",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"v1",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE-CATEGORYID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6ImFkbWluIiwiZXhwIjoxNjcwMzk0MTQyLCJzdWIiOiJhZG1pbkBnbWFpbC5jb20ifQ.yubAfyNdwIkUi8YAYBNQlfiRh7waY1pbl5vLp_cqasI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\":\"Monthly 4 Update\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://kanban-board-production-a581.up.railway.app/v1/categories/3",
+					"protocol": "https",
+					"host": [
+						"kanban-board-production-a581",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"v1",
+						"categories",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE-CATEGORY",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6Im1lbWJlciIsImV4cCI6MTY3MDM5NDA4Miwic3ViIjoibWVtYmVyMUBlbWFpbC5jb20ifQ.91g8rppYY4T5sg-P5FL7i3FcG-qd2V0cSBODziPEAcA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://kanban-board-production-a581.up.railway.app/v1/categories/3",
+					"protocol": "https",
+					"host": [
+						"kanban-board-production-a581",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"v1",
+						"categories",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE-TASK",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6Im1lbWJlciIsImV4cCI6MTY3MDM5MzU3Miwic3ViIjoibWVtYmVyMUBlbWFpbC5jb20ifQ.rQEv5Vlpo7ntTGTkhZnVCAiolcsn2fI8QhF1FMjNw-A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Buat Models\",\r\n    \"description\": \"Postgress\",\r\n    \"category_id\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://kanban-board-production-a581.up.railway.app/v1/tasks",
+					"protocol": "https",
+					"host": [
+						"kanban-board-production-a581",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"v1",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-TASKS",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6Im1lbWJlciIsImV4cCI6MTY3MDM5MzU3Miwic3ViIjoibWVtYmVyMUBlbWFpbC5jb20ifQ.rQEv5Vlpo7ntTGTkhZnVCAiolcsn2fI8QhF1FMjNw-A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://kanban-board-production-a581.up.railway.app/v1/tasks",
+					"protocol": "https",
+					"host": [
+						"kanban-board-production-a581",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"v1",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE-TASK",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6Im1lbWJlciIsImV4cCI6MTY3MDM5MzU3Miwic3ViIjoibWVtYmVyMUBlbWFpbC5jb20ifQ.rQEv5Vlpo7ntTGTkhZnVCAiolcsn2fI8QhF1FMjNw-A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"database - update\",\r\n    \"description\":\"Postgress - update\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://kanban-board-production-a581.up.railway.app/v1/tasks/2",
+					"protocol": "https",
+					"host": [
+						"kanban-board-production-a581",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"v1",
+						"tasks",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE-STATUS-TASK",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6Im1lbWJlciIsImV4cCI6MTY3MDM5MzU3Miwic3ViIjoibWVtYmVyMUBlbWFpbC5jb20ifQ.rQEv5Vlpo7ntTGTkhZnVCAiolcsn2fI8QhF1FMjNw-A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://kanban-board-production-a581.up.railway.app/v1/tasks/update-status/3",
+					"protocol": "https",
+					"host": [
+						"kanban-board-production-a581",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"v1",
+						"tasks",
+						"update-status",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE-CATEGORY-TASK",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6Im1lbWJlciIsImV4cCI6MTY3MDM5MzU3Miwic3ViIjoibWVtYmVyMUBlbWFpbC5jb20ifQ.rQEv5Vlpo7ntTGTkhZnVCAiolcsn2fI8QhF1FMjNw-A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"category_id\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://kanban-board-production-a581.up.railway.app/v1/tasks/update-category/3",
+					"protocol": "https",
+					"host": [
+						"kanban-board-production-a581",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"v1",
+						"tasks",
+						"update-category",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE-TASK",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6Im1lbWJlciIsImV4cCI6MTY3MDM5MzU3Miwic3ViIjoibWVtYmVyMUBlbWFpbC5jb20ifQ.rQEv5Vlpo7ntTGTkhZnVCAiolcsn2fI8QhF1FMjNw-A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://kanban-board-production-a581.up.railway.app/v1/tasks/2",
+					"protocol": "https",
+					"host": [
+						"kanban-board-production-a581",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"v1",
+						"tasks",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
