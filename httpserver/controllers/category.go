@@ -138,7 +138,6 @@ func (c *CategoryController) DeleteCategory(ctx *gin.Context) {
 }
 
 func (c *CategoryController) GetCategories(ctx *gin.Context) {
-	// var res views.TaskGetCategories
 	var task models.Task
 	var user models.Users
 

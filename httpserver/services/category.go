@@ -97,12 +97,6 @@ func (s *categorySvc) DeleteCategory(ctx context.Context, id int) *views.Respons
 }
 
 func (s *categorySvc) GetCategory(ctx context.Context, task *models.Task, user *models.Users) *views.Response {
-	// user, err := s.user.GetAllUsers(ctx)
-	// task, err := s.taskRepo.FindAllTasks(ctx)
-	// model := models.Task{
-	// 	Title:       task.Title,
-	// 	Description: task.Description,
-	// }
 	c, err := s.repo.GetCategories(ctx)
 	if err != nil {
 		return views.ErrorResponse(http.StatusInternalServerError, views.M_INTERNAL_SERVER_ERROR, err)
@@ -129,7 +123,6 @@ func (s *categorySvc) GetCategory(ctx context.Context, task *models.Task, user *
 			CreatedAt: cat.CreatedAt,
 			Tasks:     tasks,
 		})
-		// res.Tasks.Title = cat.Tasks.Title
 	}
 	return views.SuccessResponse(http.StatusOK, views.M_OK, categories)
 }
